@@ -6,8 +6,8 @@ def display(img, titles):
     plt.figure(figsize=(12,8))
     
     for i in range(len(img)):
-        plt.subplot(2,3,i+1)
-        if i<2:
+        plt.subplot(3,3,i+1)
+        if i<3:
             plt.imshow(img[i], cmap='gray')
             plt.axis('off')
         else:
@@ -45,9 +45,11 @@ def main():
     new_level = np.round(np.array(cdf) * 255).astype(np.uint8)
     new_img = convolution(img, new_level)
     hist_e = histogram(new_img)
+    equalize_img = cv2.equalizeHist(img)
+    hist_e_builtin = histogram(equalize_img)
     
-    img_set = [img, new_img, hist, pdf, cdf, hist_e]
-    titles = ["Original_Image","New_Image", "Histogram", "PDF", "CDF","Histoghram_Equalization"]
+    img_set = [img, new_img,equalize_img, hist, pdf, cdf, hist_e,hist_e_builtin]
+    titles = ["Original_Image","New_Image","Built-in-Equalize", "Histogram", "PDF", "CDF","Histoghram_Equalization", "Equalize_hist_built-in"]
     
     display(img_set, titles)
     
